@@ -1,9 +1,11 @@
 const Prebook = require('../Models/prebook')
-const Section = require('../Models/section')
-const Question = require('../Models/question')
-const PrebookScore = require('../Models/prebookScore')
+// const Section = require('../Models/section')
+// const Question = require('../Models/question')
+// const PrebookScore = require('../Models/prebookScore')
 const ErrorResponse = require('../Utils/errorResponse')
 const asyncHandler = require('../Middleware/async')
+const sendMail = require('../Utils/sendEmail')
+const { PRIORITY_BELOW_NORMAL } = require('constants')
 
 // @desc    Get all prebooks
 // @route   GET    /api/v1/prebook
@@ -49,6 +51,15 @@ exports.createPrebook = asyncHandler(async (req, res, next) => {
             message: "Invalid prebook details"
         })
     }
+    let htmlMessage = " " // TODO: Add html messsage
+    let options = {
+        email: req.user.email,
+        cc: prebook.email,
+        subject: "Confirmation of Visit",
+        message: "Hello, you have been confirmed to visit " + req.user.firstName + " " + req.user.lastName + ". Your token is " + prebook.token,
+        html: htmlMessage
+    }
+    await sendMail(options) // Send email with token to both parties
     res.status(201).json({
         success: true,
         data: prebook
@@ -67,6 +78,15 @@ exports.getPrebookByToken = asyncHandler(async (req, res, next) => {
             message: "Prebook not found"
         })
     }
+    let htmlMessage = " " // TODO: Add html messsage
+    let options = {
+        email: req.user.email,
+        // cc: prebook.email,
+        subject: "Arrival of Visitor",
+        message: "Hello, your visitor, " + prebook.name + " has arrived.",
+        html: htmlMessage
+    }
+    await sendMail(options) // Send arrival email to host
     res.status(200).json({
         success: true,
         data: prebook
