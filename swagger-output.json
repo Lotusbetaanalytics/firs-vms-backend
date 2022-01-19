@@ -1,0 +1,869 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FIRS-VMS API",
+    "description": "A visitor management system api",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+        "name": "user and auth",
+        "description": "Perform user management and authentication"
+    },
+    {
+        "name": "prebook",
+        "description": "Create and modify visitor prebooking"
+    },
+    {
+        "name": "logs",
+        "description": "View logs"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "tags": ["user and auth"],
+        "summary": "Get all users",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {"$ref": "#/responses/User"}
+                }
+              }  
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/auth": {
+      "post": {
+        "tags": ["user and auth"],
+        "summary": "Create a user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/responses/User"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["user and auth"],
+        "summary": "Get currently authenticated user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/User"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["user and auth"],
+        "summary": "Update currently authenticated user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/User"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/{id}": {
+      "get": {
+        "tags": ["user and auth"],
+        "summary": "Get user by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/User"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["user and auth"],
+        "summary": "Update user by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/User"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["user and auth"],
+        "summary": "Delete user by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": ["user and auth"],
+        "summary": "Create a user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/Token"
+            }
+          },
+          "404": {
+            "description": "Invalid Credentials"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": ["user and auth"],
+        "summary": "User logout",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/forgotPassword": {
+      "post": {
+        "tags": ["user and auth"],
+        "summary": "Forgot password",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/resetPassword/{resettoken}": {
+      "post": {
+        "tags": ["user and auth"],
+        "summary": "Reset Password",
+        "description": "",
+        "parameters": [
+          {
+            "name": "resettoken",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid Token"
+          }
+        }
+      }
+    },
+    "/api/v1/prebook": {
+      "get": {
+        "tags": ["prebook"],
+        "summary": "Get all visitor probooks",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {"$ref": "#/responses/Prebook"}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["prebook"],
+        "summary": "Create a prebooking for a visitor ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Prebook"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/prebook/{token}": {
+      "get": {
+        "tags": ["prebook"],
+        "summary": "Get a visitor's probooking by token",
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["prebook"],
+        "summary": "Update a visitor's probooking by token",
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Prebook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["prebook"],
+        "summary": "Delete a visitor's probooking by token",
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/prebook/{id}": {
+      "get": {
+        "tags": ["prebook"],
+        "summary": "Get a visitor's probooking by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["prebook"],
+        "summary": "Update a visitor's probooking by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Prebook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["prebook"],
+        "summary": "Delete a visitor's probooking by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Prebook": {
+      "required": [
+        "name",
+        "email",
+        "phoneNumber",
+        "company",
+        "laptop",
+        "host",
+        "time",
+        "date",
+        "purpose",
+        "timeIn",
+        "token"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "email": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "company": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "laptop": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "host": {
+          "type": "id",
+          "example": "SomeExampleId"
+        },
+        "time": {
+          "type": "string",
+          "example": "11:12:40"
+        },
+        "date": {
+          "type": "string",
+          "example": "2018-8-3"
+        },
+        "purpose": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "timeIn": {
+          "type": "string",
+          "example": "2018-8-3 11:12:40"
+        },
+        "timeOut": {
+          "type": "string",
+          "example": "2018-8-3 11:12:40"
+        },
+        "token": {
+          "type": "string",
+          "example": "SomeExampleToken"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2018-8-3 11:12:40"
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "department",
+        "floor",
+        "officeNumber"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "email": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "password": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "image": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "department": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "floor": {
+          "type": "string",
+          "example": "3"
+        },
+        "officeNumber": {
+          "type": "string",
+          "example": "12"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": true
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2018-8-3 11:12:40"
+        }
+      }
+    }
+  },
+  "responses": {
+    "Prebook": {
+      "required": [
+        "name",
+        "email",
+        "phoneNumber",
+        "company",
+        "laptop",
+        "host",
+        "time",
+        "date",
+        "purpose",
+        "timeIn",
+        "token"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "email": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "company": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "laptop": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "host": {
+          "type": "id",
+          "example": "SomeExampleId"
+        },
+        "time": {
+          "type": "string",
+          "example": "11:12:40"
+        },
+        "date": {
+          "type": "string",
+          "example": "2018-8-3"
+        },
+        "purpose": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "timeIn": {
+          "type": "string",
+          "example": "2018-8-3 11:12:40"
+        },
+        "timeOut": {
+          "type": "string",
+          "example": "2018-8-3 11:12:40"
+        },
+        "token": {
+          "type": "string",
+          "example": "SomeExampleToken"
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2018-8-3 11:12:40"
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "department",
+        "floor",
+        "officeNumber"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "email": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "password": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "image": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "department": {
+          "type": "string",
+          "example": "Some example string"
+        },
+        "floor": {
+          "type": "string",
+          "example": "3"
+        },
+        "officeNumber": {
+          "type": "string",
+          "example": "12"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": true
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2018-8-3 11:12:40"
+        }
+      }
+    },
+    "Token": {
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "Some example string"
+        }
+      }
+    }
+  }
+}

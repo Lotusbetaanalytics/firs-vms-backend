@@ -11,12 +11,12 @@ const rateLimit = require("express-rate-limit");
 const errorHandler = require('./Middleware/error')
 const bodyParser = require("body-parser");
 
-// // For swagger
-// const swaggerJsdoc = require("swagger-jsdoc");
-// const swaggerUi = require('swagger-ui-express')
-// const swaggerOptions = require('./swagger-options')
-// // const swaggerFile = require('./swagger-output.json') // for swagger autogen
-// const swaggerFile = require('./swagger.json')
+// For swagger
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require('swagger-ui-express')
+const swaggerOptions = require('./swagger-options')
+// const swaggerFile = require('./swagger-output.json') // for swagger autogen
+const swaggerFile = require('./swagger.json')
 
 // Routes
 // const companyProfile = require('./Routes/companyProfile');
@@ -72,8 +72,8 @@ app.use(authentication)
 
 // const specs = swaggerJsdoc(swaggerOptions); // for swagger-autogen
 
-// app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }))
-// // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }))
+// app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
 
 app.use(express.static(path.join(__dirname, "/public"))); //Set static folder
 
