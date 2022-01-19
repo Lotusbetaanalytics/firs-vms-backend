@@ -26,7 +26,7 @@ const swaggerFile = require('./swagger.json')
 // const testScore = require('./Routes/testScore');
 // const sectionScore = require('./Routes/sectionScore');
 const user = require('./Routes/user');
-// const candidate = require('./Routes/candidate');
+const logs = require('./Routes/logs');
 // const candidateResponse = require('./Routes/candidateResponse');
 const authentication = require('./Routes/authentication')
 
@@ -66,7 +66,7 @@ app.use(limiter);
 // app.use(testScore);
 // app.use(sectionScore);
 app.use(user);
-// app.use(candidate);
+app.use(logs);
 // app.use(candidateResponse);
 app.use(authentication)
 

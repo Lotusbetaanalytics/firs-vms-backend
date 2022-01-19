@@ -27,7 +27,7 @@ const Prebook = new Schema({
     host: {
         type: mongoose.Schema.ObjectId,
         ref: 'user',
-        required: true
+        // required: true
     },
     time: {
         type: Date,
@@ -58,7 +58,7 @@ const Prebook = new Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Checked in', 'Checked out'],
+        enum: ['Pending', 'CheckedIn', 'CheckedOut'],
         default: 'Pending'
     },
     createdAt: {
@@ -79,6 +79,7 @@ Prebook.pre("save", async function (next) {
     }
 
     this.token = prebook
+    this.host = req.user
 
     // TODO: create token and save it to this.token
 })

@@ -5,7 +5,6 @@ const Prebook = require('../Models/prebook')
 const ErrorResponse = require('../Utils/errorResponse')
 const asyncHandler = require('../Middleware/async')
 const sendMail = require('../Utils/sendEmail')
-const { PRIORITY_BELOW_NORMAL } = require('constants')
 
 // @desc    Get all prebooks
 // @route   GET    /api/v1/prebook
@@ -13,7 +12,7 @@ const { PRIORITY_BELOW_NORMAL } = require('constants')
 exports.getAllPrebooks = asyncHandler(async (req, res, next) => {
     // res.status(200).json(res.advancedResults);
 
-    const prebooks = await Prebook.find()
+    const prebooks = await Prebook.find().populate({path: 'user', select: 'id firstName lastName email department floor officeNumber'})
 
     if (!prebooks || prebooks.length < 1) {
         return res.status(404).json({
@@ -70,7 +69,7 @@ exports.createPrebook = asyncHandler(async (req, res, next) => {
 // @route   GET    /api/v1/prebook/:token
 // @access  Private
 exports.getPrebookByToken = asyncHandler(async (req, res, next) => {
-    const prebook = await Prebook.findOne({token: req.params.token})
+    const prebook = await Prebook.findOne({token: req.params.token}).populate({path: 'user', select: 'id firstName lastName email department floor officeNumber'})
 
     if (!prebook) {
         return res.status(404).json({
@@ -140,7 +139,7 @@ exports.deletePrebookByToken = asyncHandler(async (req, res, next) => {
 // @route   GET    /api/v1/prebook/:id
 // @access  Private
 exports.getPrebook = asyncHandler(async (req, res, next) => {
-    const prebook = await Prebook.findById(req.params.id)
+    const prebook = await Prebook.findById(req.params.id).populate({path: 'user', select: 'id firstName lastName email department floor officeNumber'})
 
     if (!prebook) {
         return res.status(404).json({
