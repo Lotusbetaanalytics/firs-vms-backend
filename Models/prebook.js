@@ -1,5 +1,6 @@
 const mongoose  = require("mongoose");
 const Schema = mongoose.Schema;
+const token = require('../Utils/generateToken')
 
 
 const Prebook = new Schema({
@@ -68,6 +69,17 @@ const Prebook = new Schema({
 
 // Create token before saving
 Prebook.pre("save", async function (next) {
+    let prebookToken = token(6)
+
+    const prebook = await Prebook.find({token: prebookToken})
+
+    while (prebook.length >= 1) {
+        prebookToken = token(6)
+        prebook = await Prebook.find({token: prebookToken})
+    }
+
+    this.token = prebook
+
     // TODO: create token and save it to this.token
 })
 

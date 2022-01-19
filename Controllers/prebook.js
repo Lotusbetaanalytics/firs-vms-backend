@@ -93,6 +93,49 @@ exports.getPrebookByToken = asyncHandler(async (req, res, next) => {
     })
 })
 
+// @desc    Update prebook by token
+// @route   PUT    /api/v1/prebook/:token
+// @access  Private
+exports.updatePrebookByToken = asyncHandler(async (req, res, next) => {
+    const prebook = await Prebook.findOneAndUpdate(
+        {token: req.params.token},
+        req.body,
+        {
+            new: true,
+            runValidators: true,
+        }
+    )
+
+    if (!prebook) {
+        res.status(400).json({
+            success: false,
+            message: "Invalid prebook details"
+        })
+    }
+    res.status(200).json({
+        success: true,
+        data: prebook
+    })
+})
+
+// @desc    Delete prebook by token
+// @route   DELETE    /api/v1/prebook/:token
+// @access  Private
+exports.deletePrebookByToken = asyncHandler(async (req, res, next) => {
+    const prebook = await Prebook.findOneAndDelete({token: req.params.token})
+
+    if (!prebook) {
+        return res.status(404).json({
+            success: false,
+            message: "Prebook not found"
+        })
+    }
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
+})
+
 // @desc    Get prebook by id
 // @route   GET    /api/v1/prebook/:id
 // @access  Private
