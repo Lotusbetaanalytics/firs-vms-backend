@@ -5,7 +5,7 @@
       "description": "A visitor management system api",
       "version": "1.0.0"
     },
-    "host": "localhost:5000",
+    "host": "firs-vms-backend.herokuapp.com",
     "basePath": "/",
     "tags": [
       {
