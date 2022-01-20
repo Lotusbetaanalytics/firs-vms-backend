@@ -366,7 +366,7 @@
         "post": {
           "tags": ["prebook"],
           "summary": "Create a prebooking for a visitor ",
-          "description": "",
+          "description": "Use Date().toLocaleDateString() and Date().toLocaleTimeString() for date and time",
           "parameters": [
             {
               "name": "authorization",
@@ -623,12 +623,9 @@
           "email",
           "phoneNumber",
           "company",
-          "laptop",
           "time",
           "date",
-          "purpose",
-          "timeIn",
-          "token"
+          "purpose"
         ],
         "properties": {
           "name": {
@@ -657,11 +654,11 @@
           },
           "time": {
             "type": "string",
-            "example": "11:12:40"
+            "example": "11:12:40 AM"
           },
           "date": {
             "type": "string",
-            "example": "2018-8-3"
+            "example": "1/20/2022"
           },
           "purpose": {
             "type": "string",
@@ -669,11 +666,11 @@
           },
           "timeIn": {
             "type": "string",
-            "example": "2018-8-3 11:12:40"
+            "example": "1/20/2022, 11:12:40 AM"
           },
           "timeOut": {
             "type": "string",
-            "example": "2018-8-3 11:12:40"
+            "example": "1/20/2022, 11:12:40 AM"
           },
           "token": {
             "type": "string",
@@ -686,10 +683,6 @@
           "status": {
             "type": "string",
             "example": "Pending"
-          },
-          "createdAt": {
-            "type": "string",
-            "default": "2018-8-3 11:12:40"
           }
         }
       },
