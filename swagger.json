@@ -486,7 +486,7 @@
           }
         }
       },
-      "/api/v1/prebook/{id}": {
+      "/api/v1/prebooks/{id}": {
         "get": {
           "tags": ["prebook"],
           "summary": "Get a visitor's probooking by id",
