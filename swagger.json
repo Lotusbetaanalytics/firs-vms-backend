@@ -575,6 +575,45 @@
             }
           }
         }
+      },
+      "/api/v1/logs": {
+        "get": {
+          "tags": ["logs"],
+          "summary": "Get all visitor prebook logs",
+          "description": "",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/responses/Logs"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/logs/{user_id}": {
+        "get": {
+          "tags": ["logs"],
+          "summary": "Get all visitor prebook logs for a user",
+          "description": "",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/responses/Logs"
+              }
+            }
+          }
+        }
       }
     },
     "definitions": {
@@ -791,7 +830,6 @@
           "firstName",
           "lastName",
           "email",
-          "password",
           "department",
           "floor",
           "officeNumber"
@@ -814,10 +852,6 @@
             "example": "Some example string"
           },
           "email": {
-            "type": "string",
-            "example": "Some example string"
-          },
-          "password": {
             "type": "string",
             "example": "Some example string"
           },
@@ -852,7 +886,6 @@
           "firstName",
           "lastName",
           "email",
-          "password",
           "department",
           "floor",
           "officeNumber"
@@ -885,6 +918,58 @@
           "officeNumber": {
             "type": "string",
             "example": "12"
+          }
+        }
+      },
+      "Logs": {
+        "properties": {
+          "allPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "allPendingPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "allCheckedInPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "allCheckedOutPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "todaysPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "todaysPendingPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "todaysCheckedInPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
+          },
+          "todaysCheckedOutPrebooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/responses/Prebook"
+            }
           }
         }
       },

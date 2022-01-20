@@ -14,7 +14,7 @@ const endpointsFiles = [
     './Routes/user',
     './Routes/prebook',
     './Routes/authentication',
-    // './Routes/companyProfile',
+    './Routes/logs',
     // './Routes/test',
     // './Routes/question',
     // './Routes/section',

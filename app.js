@@ -27,7 +27,7 @@ const swaggerFile = require('./swagger.json')
 // const sectionScore = require('./Routes/sectionScore');
 const user = require('./Routes/user');
 const logs = require('./Routes/logs');
-// const candidateResponse = require('./Routes/candidateResponse');
+const prebook = require('./Routes/prebook');
 const authentication = require('./Routes/authentication')
 
 const app = express();
@@ -67,7 +67,7 @@ app.use(limiter);
 // app.use(sectionScore);
 app.use(user);
 app.use(logs);
-// app.use(candidateResponse);
+app.use(prebook);
 app.use(authentication)
 
 // const specs = swaggerJsdoc(swaggerOptions); // for swagger-autogen

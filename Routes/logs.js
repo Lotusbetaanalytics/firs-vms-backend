@@ -6,12 +6,14 @@ const {
     authorizeAdmin
 } = require("../Middleware/auth");
 const {
-    getLogs
+    getLogs,
+    getUserLogs
 } = require('../Controllers/logs')
 
 const router = express.Router()
 
 router.route('/api/v1/logs').get(getLogs)
+router.route('/api/v1/logs/:user_id').get(getUserLogs)
 // router.route('/api/v1/logs').post(protect, authorize, createPrebook)
 // router.route('/api/v1/logs/:token').get(getPrebookByToken)
 // router.route('/api/v1/logs/:token').put(protect, authorize, updatePrebookByToken)
