@@ -6,7 +6,7 @@ const doc = {
     description: 'A visitor management system api',
   },
   host: 'firs-vms-backend.herokuapp.com',
-  schemes: ['http'],
+  schemes: ['https', 'http'],
 };
 
 const outputFile = './swagger-output.json';
