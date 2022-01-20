@@ -2,11 +2,11 @@ const User = require('../Models/user')
 const ErrorResponse = require('../Utils/errorResponse')
 const asyncHandler = require('../Middleware/async')
 
+
 // @desc    Get all users
 // @route   GET     /api/v1/users
 // @access  Public
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
-    // res.status(200).json(res.advancedResults);
 
     const users = await User.find()
 
@@ -22,10 +22,12 @@ exports.getAllUsers = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Create user
 // @route   POST    /api/v1/auth
 // @access  Private
 exports.createUser = asyncHandler(async (req, res, next) => {
+
     const existingUser = await User.findOne({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -42,10 +44,6 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     const user = await User.create(req.body)
 
     if (!user) {
-        // return res.status(400).json({
-        //     success: false,
-        //     message: "Invalid user details"
-        // })
         return next(new ErrorResponse("Invalid user credentials", 400));
     }
     res.status(201).json({
@@ -54,10 +52,12 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Get user
 // @route   GET     /api/v1/auth/:id
 // @access  Private
 exports.getUser = asyncHandler(async (req, res, next) => {
+
     const user = await User.findById(req.params.id)
 
     if (!user) {
@@ -72,10 +72,12 @@ exports.getUser = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Update user
 // @route   PUT    /api/v1/auth/:id
 // @access  Private
 exports.updateUser = asyncHandler(async (req, res, next) => {
+
     const user = await User.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -97,10 +99,12 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Delete user
 // @route   DELETE    /api/v1/auth/:id
 // @access  Private
 exports.deleteUser = asyncHandler(async (req, res, next) => {
+
     const user = await User.findByIdAndDelete(req.params.id)
 
     if (!user) {
@@ -115,10 +119,12 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Get currently authenticated user
 // @route   GET    /api/v1/auth
 // @access  Private
 exports.getSelf = asyncHandler(async (req, res, next) => {
+
     const user = await User.findById(req.user._id)
 
     if (!user) {
@@ -133,10 +139,12 @@ exports.getSelf = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Get currently authenticated user
 // @route   PUT    /api/v1/auth
 // @access  Private
 exports.updateSelf = asyncHandler(async (req, res, next) => {
+
     const user = await User.findByIdAndUpdate(
         req.user._id,
         req.body,
@@ -158,10 +166,12 @@ exports.updateSelf = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Upload profile picture for user
 // @route   POST    /api/v1/user/upload-profile
 // @access  Private
 exports.uploadProfilePicture = asyncHandler(async (req, res, next) => {
+
     if (!req.files) {
       return next(new ErrorResponse(`Please Upload a picture`, 400));
     }

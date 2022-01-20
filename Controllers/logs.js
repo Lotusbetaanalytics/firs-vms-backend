@@ -9,7 +9,6 @@ const User = require("../Models/user")
 // @access  Public
 exports.getLogs = asyncHandler(async (req, res, next) => {
 
-    // today = new Date()
     today = new Date().toLocaleDateString()
     time = new Date().toLocaleTimeString();
     const allPrebooks = await Prebook.find()
@@ -21,7 +20,6 @@ exports.getLogs = asyncHandler(async (req, res, next) => {
     const todaysCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
     const todaysCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"})
     
-    // console.log(today + "\n" + time)
     res.status(200).json({
         success: true,
         data: {
@@ -37,12 +35,12 @@ exports.getLogs = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc    Get all user logs
 // @route   GET    /api/v1/logs/:user_id
 // @access  Public
 exports.getUserLogs = asyncHandler(async (req, res, next) => {
 
-    // today = new Date()
     today = new Date().toLocaleDateString()
     time = new Date().toLocaleTimeString();
     const allPrebooks = await Prebook.find({host: req.params.user_id})
@@ -54,7 +52,6 @@ exports.getUserLogs = asyncHandler(async (req, res, next) => {
     const todaysCheckedInPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedIn"})
     const todaysCheckedOutPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedOut"})
     
-    // console.log(today + "\n" + time)
     res.status(200).json({
         success: true,
         data: {

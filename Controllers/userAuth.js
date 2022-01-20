@@ -5,6 +5,7 @@ const User = require("../Models/user");
 const sendEmail = require("../Utils/sendEmail");
 const crypto = require("crypto");
 
+
 // @desc    Login user user
 // @route   POST    /api/v1/auth/login
 // @access   Public
@@ -32,6 +33,7 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
   
+
 // @desc    Log user user out / clear cookie
 // @route   GET  /api/v1/auth/logout
 // @access  Private
@@ -46,6 +48,7 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
     });
 });
 
+
 // @desc    Get current logged in user user
 // @route   POST    /api/v1/auth/account
 // @access  Private
@@ -56,6 +59,7 @@ exports.userAccount = asyncHandler(async (req, res, next) => {
         data: user,
     });
 });
+
 
 // @desc    Reset Password
 // @route   PUT     /api/v1/auth/resetpassword/:resettoken
@@ -82,6 +86,7 @@ exports.userResetPassword = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
   
+
 // @desc    Forgot Password
 // @route   POST    /api/v1/auth/forgotpassword
 // @access  Public
@@ -196,6 +201,7 @@ exports.userForgotPassword = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Email could not be sent", 500));
     }
 });
+
 
 //Get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {

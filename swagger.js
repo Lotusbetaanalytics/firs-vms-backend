@@ -15,15 +15,6 @@ const endpointsFiles = [
     './Routes/prebook',
     './Routes/authentication',
     './Routes/logs',
-    // './Routes/test',
-    // './Routes/question',
-    // './Routes/section',
-    // './Routes/testScore',
-    // './Routes/sectionScore',
-    // './Routes/admin',
-    // './Routes/candidate',
-    // './Routes/candidateResponse',
-    // './Routes/authentication',
 ];
 // const endpointsFiles = [
 //     './app.js'

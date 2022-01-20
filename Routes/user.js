@@ -2,11 +2,6 @@ const express = require('express')
 const advancedResults = require('../Middleware/advancedResults')
 const User = require('../Models/user')
 const {
-    protect,
-    authorize,
-    authorizeAdmin
-} = require("../Middleware/auth");
-const {
     getAllUsers,
     createUser,
     getUser,
@@ -16,6 +11,11 @@ const {
     updateSelf,
     // uploadProfilePicture
 } = require('../Controllers/user')
+const {
+    protect,
+    authorize,
+    authorizeAdmin
+} = require("../Middleware/auth");
 
 const router = express.Router()
 

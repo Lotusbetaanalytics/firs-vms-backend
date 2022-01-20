@@ -22,12 +22,7 @@ const options = {
         './Routes/user',
         './Routes/prebook',
         './Routes/authentication',
-        // './Routes/section',
-        // './Routes/testScore',
-        // './Routes/sectionScore',
-        // './Routes/admin',
-        // './Routes/candidate',
-        // './Routes/authentication',
+        './Routes/logs',
     ],
 };
 

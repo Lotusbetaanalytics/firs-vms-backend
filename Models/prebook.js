@@ -1,6 +1,5 @@
 const mongoose  = require("mongoose");
 const Schema = mongoose.Schema;
-const token = require('../Utils/generateToken')
 
 
 const Prebook = new Schema({
@@ -18,16 +17,13 @@ const Prebook = new Schema({
     },
     company: {
         type: String,
-        // required: true
     },
     laptop: {
         type: String,
-        // required: true,
     },
     host: {
         type: mongoose.Schema.ObjectId,
         ref: 'user',
-        // required: true
     },
     time: {
         type: String,
@@ -49,7 +45,6 @@ const Prebook = new Schema({
     },
     token: {
         type: String,
-        // required: true
     },
     isActive: {
         type: Boolean,
@@ -65,22 +60,5 @@ const Prebook = new Schema({
         default: Date.now,
     },
 });
-
-// // Create token before saving
-// Prebook.pre("save", async function (next) {
-//     let prebookToken = token(6)
-
-//     const prebook = await Prebook.find({token: prebookToken})
-
-//     while (prebook.length >= 1) {
-//         prebookToken = token(6)
-//         prebook = await Prebook.find({token: prebookToken})
-//     }
-
-//     this.token = prebook
-//     this.host = req.user
-
-//     // TODO: create token and save it to this.token
-// })
 
 module.exports = mongoose.model('prebook', Prebook)

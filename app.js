@@ -19,12 +19,6 @@ const swaggerOptions = require('./swagger-options')
 const swaggerFile = require('./swagger.json')
 
 // Routes
-// const companyProfile = require('./Routes/companyProfile');
-// const test = require('./Routes/test');
-// const question = require('./Routes/question');
-// const section = require('./Routes/section');
-// const testScore = require('./Routes/testScore');
-// const sectionScore = require('./Routes/sectionScore');
 const user = require('./Routes/user');
 const logs = require('./Routes/logs');
 const prebook = require('./Routes/prebook');
@@ -34,7 +28,6 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 const MONGO_CLOUD_URI = process.env.MONGO_CLOUD_URI;
-
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -59,23 +52,17 @@ app.use(limiter);
 
 
 // Routes
-// app.use(companyProfile);
-// app.use(test);
-// app.use(question);
-// app.use(section);
-// app.use(testScore);
-// app.use(sectionScore);
 app.use(user);
 app.use(logs);
 app.use(prebook);
 app.use(authentication)
 
 // const specs = swaggerJsdoc(swaggerOptions); // for swagger-autogen
-
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }))
 // app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
 
 app.use(express.static(path.join(__dirname, "/public"))); //Set static folder
+
 
 mongoose.connect(MONGO_CLOUD_URI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => {
@@ -87,7 +74,6 @@ mongoose.connect(MONGO_CLOUD_URI, {useNewUrlParser: true, useUnifiedTopology: tr
     .catch((err) => {
         console.log("Error connecting to MongoDB!");
     });
-
 
 // For emulating .htaccess
 app.use(function(req, res, next) {
