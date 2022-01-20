@@ -648,10 +648,6 @@
             "type": "string",
             "example": "Some example string"
           },
-          "host": {
-            "type": "id",
-            "example": "SomeExampleId"
-          },
           "time": {
             "type": "string",
             "example": "11:12:40 AM"
@@ -663,26 +659,6 @@
           "purpose": {
             "type": "string",
             "example": "Some example string"
-          },
-          "timeIn": {
-            "type": "string",
-            "example": "1/20/2022, 11:12:40 AM"
-          },
-          "timeOut": {
-            "type": "string",
-            "example": "1/20/2022, 11:12:40 AM"
-          },
-          "token": {
-            "type": "string",
-            "example": "SomeExampleToken"
-          },
-          "isActive": {
-            "type": "boolean",
-            "example": true
-          },
-          "status": {
-            "type": "string",
-            "example": "Pending"
           }
         }
       },
