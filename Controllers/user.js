@@ -3,7 +3,7 @@ const ErrorResponse = require('../Utils/errorResponse')
 const asyncHandler = require('../Middleware/async')
 
 // @desc    Get all users
-// @route   GET     /api/v1/user
+// @route   GET     /api/v1/users
 // @access  Public
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
     // res.status(200).json(res.advancedResults);
@@ -23,7 +23,7 @@ exports.getAllUsers = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Create user
-// @route   POST    /api/v1/user
+// @route   POST    /api/v1/auth
 // @access  Private
 exports.createUser = asyncHandler(async (req, res, next) => {
     const existingUser = await User.findOne({
@@ -55,7 +55,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Get user
-// @route   GET     /api/v1/user/:id
+// @route   GET     /api/v1/auth/:id
 // @access  Private
 exports.getUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id)
@@ -73,7 +73,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Update user
-// @route   PUT    /api/v1/user/:id
+// @route   PUT    /api/v1/auth/:id
 // @access  Private
 exports.updateUser = asyncHandler(async (req, res, next) => {
     const user = await User.findByIdAndUpdate(
@@ -98,7 +98,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Delete user
-// @route   DELETE    /api/v1/user/:id
+// @route   DELETE    /api/v1/auth/:id
 // @access  Private
 exports.deleteUser = asyncHandler(async (req, res, next) => {
     const user = await User.findByIdAndDelete(req.params.id)
@@ -116,7 +116,7 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Get currently authenticated user
-// @route   GET    /api/v1/user/self
+// @route   GET    /api/v1/auth
 // @access  Private
 exports.getSelf = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.user._id)
@@ -134,7 +134,7 @@ exports.getSelf = asyncHandler(async (req, res, next) => {
 })
 
 // @desc    Get currently authenticated user
-// @route   PUT    /api/v1/user/self
+// @route   PUT    /api/v1/auth
 // @access  Private
 exports.updateSelf = asyncHandler(async (req, res, next) => {
     const user = await User.findByIdAndUpdate(
