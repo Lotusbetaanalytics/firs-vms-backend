@@ -18,7 +18,7 @@ const Prebook = new Schema({
     },
     company: {
         type: String,
-        required: true
+        // required: true
     },
     laptop: {
         type: String,

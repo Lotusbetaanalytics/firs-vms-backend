@@ -366,7 +366,7 @@
         "post": {
           "tags": ["prebook"],
           "summary": "Create a prebooking for a visitor ",
-          "description": "Use Date().toLocaleDateString() and Date().toLocaleTimeString() for date and time",
+          "description": "Use Date().toLocaleDateString() and Date().toLocaleTimeString() for date and time. Laptop refers to the laptop serial number",
           "parameters": [
             {
               "name": "authorization",
@@ -622,7 +622,6 @@
           "name",
           "email",
           "phoneNumber",
-          "company",
           "time",
           "date",
           "purpose"
