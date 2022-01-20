@@ -22,7 +22,7 @@ const Prebook = new Schema({
     },
     laptop: {
         type: String,
-        required: true,
+        // required: true,
     },
     host: {
         type: mongoose.Schema.ObjectId,
@@ -30,11 +30,11 @@ const Prebook = new Schema({
         // required: true
     },
     time: {
-        type: Date,
+        type: String,
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         required: true
     },
     purpose: {
@@ -43,14 +43,13 @@ const Prebook = new Schema({
     },
     timeIn: {
         type: Date,
-        required: true
     },
     timeOut: {
         type: Date,
     },
     token: {
         type: String,
-        required: true
+        // required: true
     },
     isActive: {
         type: Boolean,
@@ -67,21 +66,21 @@ const Prebook = new Schema({
     },
 });
 
-// Create token before saving
-Prebook.pre("save", async function (next) {
-    let prebookToken = token(6)
+// // Create token before saving
+// Prebook.pre("save", async function (next) {
+//     let prebookToken = token(6)
 
-    const prebook = await Prebook.find({token: prebookToken})
+//     const prebook = await Prebook.find({token: prebookToken})
 
-    while (prebook.length >= 1) {
-        prebookToken = token(6)
-        prebook = await Prebook.find({token: prebookToken})
-    }
+//     while (prebook.length >= 1) {
+//         prebookToken = token(6)
+//         prebook = await Prebook.find({token: prebookToken})
+//     }
 
-    this.token = prebook
-    this.host = req.user
+//     this.token = prebook
+//     this.host = req.user
 
-    // TODO: create token and save it to this.token
-})
+//     // TODO: create token and save it to this.token
+// })
 
 module.exports = mongoose.model('prebook', Prebook)
