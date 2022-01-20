@@ -5,7 +5,7 @@ const doc = {
     title: 'FIRS-VMS API',
     description: 'A visitor management system api',
   },
-  host: 'https://firs-vms-backend.herokuapp.com',
+  host: 'firs-vms-backend.herokuapp.com:80',
   schemes: ['http'],
 };
 
