@@ -13,14 +13,38 @@ exports.getLogs = asyncHandler(async (req, res, next) => {
     time = new Date().toLocaleTimeString();
     const allStaff = await User.find() // all staff
     const allAdmin = await User.find({isAdmin: true}) // all admin
-    const allPrebooks = await Prebook.find()
-    // const allPendingPrebooks = await Prebook.find({date: today, status: "Pending"})
-    // const allCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
-    // const allCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"})
-    const todaysPrebooks = await Prebook.find({date: today})
-    const todaysPendingPrebooks = await Prebook.find({date: today, status: "Pending"})
-    const todaysCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
-    const todaysCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"})
+    const allPrebooks = await Prebook.find().populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    // const allPendingPrebooks = await Prebook.find({date: today, status: "Pending"}).populate({
+    //     path: 'host',
+    //     select: 'id firstName lastName email department floor officeNumber'
+    // })
+    // const allCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"}).populate({
+    //     path: 'host',
+    //     select: 'id firstName lastName email department floor officeNumber'
+    // })
+    // const allCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"}).populate({
+    //     path: 'host',
+    //     select: 'id firstName lastName email department floor officeNumber'
+    // })
+    const todaysPrebooks = await Prebook.find({date: today}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysPendingPrebooks = await Prebook.find({date: today, status: "Pending"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
     
     res.status(200).json({
         success: true,
@@ -47,14 +71,38 @@ exports.getUserLogs = asyncHandler(async (req, res, next) => {
 
     today = new Date().toLocaleDateString()
     time = new Date().toLocaleTimeString();
-    const allPrebooks = await Prebook.find({host: req.params.user_id})
-    const allPendingPrebooks = await Prebook.find({host: req.params.user_id, status: "Pending"})
-    const allCheckedInPrebooks = await Prebook.find({host: req.params.user_id, status: "CheckedIn"})
-    const allCheckedOutPrebooks = await Prebook.find({host: req.params.user_id, status: "CheckedOut"})
-    const todaysPrebooks = await Prebook.find({host: req.params.user_id, date: today})
-    const todaysPendingPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "Pending"})
-    const todaysCheckedInPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedIn"})
-    const todaysCheckedOutPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedOut"})
+    const allPrebooks = await Prebook.find({host: req.params.user_id}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const allPendingPrebooks = await Prebook.find({host: req.params.user_id, status: "Pending"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const allCheckedInPrebooks = await Prebook.find({host: req.params.user_id, status: "CheckedIn"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const allCheckedOutPrebooks = await Prebook.find({host: req.params.user_id, status: "CheckedOut"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysPrebooks = await Prebook.find({host: req.params.user_id, date: today}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysPendingPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "Pending"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysCheckedInPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedIn"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
+    const todaysCheckedOutPrebooks = await Prebook.find({host: req.params.user_id, date: today, status: "CheckedOut"}).populate({
+        path: 'host',
+        select: 'id firstName lastName email department floor officeNumber'
+    })
     
     res.status(200).json({
         success: true,
