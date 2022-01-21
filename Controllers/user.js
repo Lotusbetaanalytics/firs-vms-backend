@@ -29,8 +29,6 @@ exports.getAllUsers = asyncHandler(async (req, res, next) => {
 exports.createUser = asyncHandler(async (req, res, next) => {
 
     const existingUser = await User.findOne({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
         email: req.body.email
     })
 

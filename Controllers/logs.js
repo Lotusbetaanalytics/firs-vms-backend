@@ -11,10 +11,12 @@ exports.getLogs = asyncHandler(async (req, res, next) => {
 
     today = new Date().toLocaleDateString()
     time = new Date().toLocaleTimeString();
+    const allStaff = await User.find() // all staff
+    const allAdmin = await User.find({isAdmin: true}) // all admin
     const allPrebooks = await Prebook.find()
-    const allPendingPrebooks = await Prebook.find({date: today, status: "Pending"})
-    const allCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
-    const allCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"})
+    // const allPendingPrebooks = await Prebook.find({date: today, status: "Pending"})
+    // const allCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
+    // const allCheckedOutPrebooks = await Prebook.find({date: today, status: "CheckedOut"})
     const todaysPrebooks = await Prebook.find({date: today})
     const todaysPendingPrebooks = await Prebook.find({date: today, status: "Pending"})
     const todaysCheckedInPrebooks = await Prebook.find({date: today, status: "CheckedIn"})
@@ -23,10 +25,12 @@ exports.getLogs = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         data: {
+            allStaff: allStaff,
+            allAdmin: allAdmin,
             allPrebooks: allPrebooks,
-            allPendingPrebooks: allPendingPrebooks,
-            allCheckedInPrebooks: allCheckedInPrebooks,
-            allCheckedOutPrebooks: allCheckedOutPrebooks,
+            // allPendingPrebooks: allPendingPrebooks,
+            // allCheckedInPrebooks: allCheckedInPrebooks,
+            // allCheckedOutPrebooks: allCheckedOutPrebooks,
             todaysPrebooks: todaysPrebooks,
             todaysPendingPrebooks: todaysPendingPrebooks,
             todaysCheckedInPrebooks: todaysCheckedInPrebooks,

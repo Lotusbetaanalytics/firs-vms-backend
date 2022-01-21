@@ -92,7 +92,7 @@ exports.getPrebookByToken = asyncHandler(async (req, res, next) => {
         select: 'id firstName lastName email department floor officeNumber'
     })
 
-    if (!prebook) {
+    if (!prebook || !prebook.isActive) {
         return res.status(404).json({
             success: false,
             message: "Prebook not found"
