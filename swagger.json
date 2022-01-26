@@ -424,7 +424,7 @@
         },
         "put": {
           "tags": ["prebook"],
-          "summary": "Update a visitor's probooking by token",
+          "summary": "Check in or check out a visitor",
           "description": "",
           "parameters": [
             {
