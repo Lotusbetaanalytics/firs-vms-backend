@@ -17,7 +17,7 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Please Provide an email and password", 400));
     }
     //check for user
-    const user = await User.findOne({ email: email }).select("+password");
+    let user = await User.findOne({ email: email }).select("+password");
   
     if (!user) {
         return next(new ErrorResponse("Invalid credentials", 400));
@@ -29,7 +29,8 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
     if (!isMatch) {
         return next(new ErrorResponse("Invalid credentials", 401));
     }
-  
+
+    user = await User.findOne({ email: email })
     sendTokenResponse(user, 200, res);
 });
   
@@ -221,5 +222,6 @@ const sendTokenResponse = (user, statusCode, res) => {
     res.status(statusCode).cookie("token", token, options).json({
         success: true,
         token,
+        user,
     });
 };
