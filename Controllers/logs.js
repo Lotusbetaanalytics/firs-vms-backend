@@ -9,8 +9,10 @@ const User = require("../Models/user")
 // @access  Public
 exports.getLogs = asyncHandler(async (req, res, next) => {
 
-    today = new Date().toLocaleDateString()
+    // today = new Date().toLocaleDateString()
+    today = new Date().toISOString().split('T')[0]
     time = new Date().toLocaleTimeString();
+    // console.log(`\n\nTime: ${time} \n\nDate: ${today} \n\n`)
     const allStaff = await User.find() // all staff
     const allAdmin = await User.find({isAdmin: true}) // all admin
     const allPrebooks = await Prebook.find().populate({
