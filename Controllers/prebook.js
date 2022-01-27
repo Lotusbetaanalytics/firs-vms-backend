@@ -95,7 +95,7 @@ exports.getPrebookByToken = asyncHandler(async (req, res, next) => {
     if (!prebook || !prebook.isActive) {
         return res.status(404).json({
             success: false,
-            message: "Prebook not found"
+            message: "You have not been prebooked"
         })
     }
 
