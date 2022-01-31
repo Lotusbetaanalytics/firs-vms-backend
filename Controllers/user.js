@@ -1,5 +1,5 @@
 const User = require('../Models/user')
-const ErrorResponse = require('../Utils/errorResponse')
+const {ErrorResponseJSON} = require('../Utils/errorResponse')
 const asyncHandler = require('../Middleware/async')
 
 
@@ -42,7 +42,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     const user = await User.create(req.body)
 
     if (!user) {
-        return next(new ErrorResponse("Invalid user credentials", 400));
+        return next(new ErrorResponse(res, "Invalid user credentials", 400));
     }
     res.status(201).json({
         success: true,
@@ -171,18 +171,18 @@ exports.updateSelf = asyncHandler(async (req, res, next) => {
 exports.uploadProfilePicture = asyncHandler(async (req, res, next) => {
 
     if (!req.files) {
-      return next(new ErrorResponse(`Please Upload a picture`, 400));
+      return next(new ErrorResponse(res, `Please Upload a picture`, 400));
     }
   
     const file = req.files.file;
     // Make sure the image is a photo
     if (!file.mimetype.startsWith("image")) {
-      return next(new ErrorResponse(`Please Upload an image file`, 400));
+      return next(new ErrorResponse(res, `Please Upload an image file`, 400));
     }
   
     // Check filesize
     if (file.size > process.env.MAX_FILE_UPLOAD) {
-      return next(new ErrorResponse(`Please Upload an image less than 5MB`, 400));
+      return next(new ErrorResponse(res, `Please Upload an image less than 5MB`, 400));
     }
 
     // Confirm user user is authenticated
@@ -199,11 +199,11 @@ exports.uploadProfilePicture = asyncHandler(async (req, res, next) => {
     file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
       if (err) {
         console.error(err);
-        return next(new ErrorResponse(`An error occured while uploading`, 500));
+        return next(new ErrorResponse(res, `An error occured while uploading`, 500));
       }
       userImage = await User.findByIdAndUpdate(req.user.id, { image: file.name });
       if (!userImage) {
-        return next(new ErrorResponse("An Error Occured, Please Tray Again", 400));
+        return next(new ErrorResponse(res, "An Error Occured, Please Tray Again", 400));
       }
       res.status(200).json({
         success: true,
